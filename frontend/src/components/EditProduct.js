@@ -1,14 +1,15 @@
 import axios from 'axios'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
 
-const AddProduct = () => {
+const EditProduct = () => {
     const [title, setTitle] = useState('')
     const [price, setPrice] = useState('')
+    const {id} = useParams()
 
-    const saveProduct = async (e) =>{
+    const updateProduct = async (e) =>{
         e.preventDefault()
-        await axios.post('http://localhost:3009/products', {
+        await axios.patch(`http://localhost:3009/products/${id}`, {
             title: title,
             price: price
         })
@@ -17,10 +18,20 @@ const AddProduct = () => {
         setPrice('')
         
     }
+
+    useEffect(() => {
+        getProductById()
+    }, [])
+
+    const getProductById = async () => {
+        const response = await axios.get(`http://localhost:3009/products/${id}`)
+        setTitle(response.data.title)
+        setPrice(response.data.price)
+    }
   return (
     <div className='mt-5'>
         <Link to="/">Kembali</Link>
-        <form onSubmit={saveProduct}>
+        <form onSubmit={updateProduct}>
             <div className="field">
                 <label className="label">Title</label>
                 <input 
@@ -42,11 +53,11 @@ const AddProduct = () => {
                 />
             </div>
             <div className="field">
-                <button className="button is-primary">Save</button>
+                <button className="button is-primary">Update</button>
             </div>
         </form>
     </div>
   )
 }
 
-export default AddProduct
+export default EditProduct
