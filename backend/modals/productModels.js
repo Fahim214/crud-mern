@@ -9,6 +9,12 @@ const Product = db.define('products', {
     },
     price:{
         type: DataTypes.DOUBLE
+    },
+    createAt: {
+        type: DataTypes.DATE
+    },
+    updateAt: {
+        type: DataTypes.DATE
     }
 },{
     freezeTableName: true

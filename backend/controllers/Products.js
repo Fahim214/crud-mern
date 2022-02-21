@@ -35,4 +35,38 @@ export const createProduct = async (req, res) => {
     } catch (error) {
         res.json({message: error.message})
     }
+}
+
+export const updateProduct = async (req, res) => {
+
+    try {
+        await Product.update(req.body, {
+            where:{
+                id: req.params.id
+            }
+        })
+        res.json({
+            "message": "Product Updated"
+        })
+    } catch (error) {
+        res.json({message: error.message})
+    }
+} 
+
+
+
+export const deleteProduct = async (req, res) => {
+
+    try {
+        await Product.destroy({
+            where:{
+                id: req.params.id
+            }
+        })
+        res.json({ 
+            "message": "Product Deleted"
+        })
+    } catch (error) {
+        res.json({message: error.message})
+    }
 } 

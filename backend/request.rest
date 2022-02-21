@@ -1,11 +1,29 @@
 GET http://localhost:3009/products
 
+###
+GET http://localhost:3009/products/9
+
 
 ###
 POST http://localhost:3009/products
 Content-Type: application/json
 
 {
-    "title": "Sandal",
-    "price": 24000
+    "title": "Laptop Lenovo",
+    "price": 2000000
 }
+
+
+###
+
+PATCH http://localhost:3009/products/9
+Content-Type: application/json
+
+{
+    "title": "Product Updated",
+    "price": 223
+}
+
+
+###
+DELETE http://localhost:3009/products/11
